@@ -84,13 +84,11 @@ let spec = req =>
     Pets200({code: 200, body: [{id: 1, name: "Fluffy"}]})
   | {
       path: [PString("pets")],
-      method: GET,
       headers: {x_signature: None},
     } =>
     All400({code: 400, body: "Bad request."})
   | {
       path: [PString("pets")],
-      method: GET,
       headers: {authorization: None},
     } =>
     All401({code: 401, body: "Not authorized."})
@@ -101,18 +99,6 @@ let spec = req =>
       requestBody: Some(RBPet(p))
     } =>
     Pets201({code: 201, body: p})
-  | {
-      path: [PString("pets")],
-      method: POST,
-      headers: {x_signature: None},
-    } =>
-    All400({code: 400, body: "Bad request."})
-  | {
-      path: [PString("pets")],
-      method: POST,
-      headers: {authorization: None},
-    } =>
-    All401({code: 401, body: "Not authorized."})
   | {
       path: [PString("pets")],
       method: POST

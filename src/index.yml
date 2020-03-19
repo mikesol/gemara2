@@ -1,0 +1,36 @@
+openapi: 3.0.0
+paths:
+    /pets/{id}
+        parameters:
+            - in: path
+              name: id
+        get:
+            resposnes:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                code:
+                                    type: int
+                                name:
+                                    type: string
+    /pets:
+        get:
+            parameters:
+                - in: header
+                  name: authorization
+                - in: header
+                  name: x_signature
+            resposnes:
+                content:
+                    application/json:
+                        schema:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    code:
+                                        type: int
+                                    name:
+                                        type: string
