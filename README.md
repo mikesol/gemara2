@@ -21,7 +21,7 @@ Gemara seeks to solve these problems while keeping the main great things about O
 
 ## So what is Gemara?
 
-I have no idea. Basically, I've taken an OpenAPI spec and built something that kinda looks like a "standard" in two different languages - ReasonML and Purescript.  The thought experiment is "Is this a useful representation of an API for mocking?"  All three specs are *applications*, meaning in addition to being a spec, they do a small proof-of-concept as a mock when executed.
+I have no idea. Basically, I've taken an OpenAPI spec and built something that kinda looks like a "standard" in two different languages - ReasonML and Purescript.  The thought experiment is "Is this a useful representation of an API for mocking?"  The specs are *applications*, meaning in addition to being a spec, they do a small proof-of-concept as a mock when executed.
 
 ## Original OpenAPI spec
 
