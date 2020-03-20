@@ -67,6 +67,8 @@ spago build
 
 ### Execute
 
+Note that this file was written by hand using the Purescript spec, whereas the ReasonML `Spec.bs.js` is entirely self-contained and doesn't use any hand-wrtten javascript. I could have done the same thing here in Purescript, but I created my own JS file to call the Purescript function `spec` just to see if I could call Purescript from JavaScript. Turns out to be pretty straightforward - see [./src/Spec.purs.js](./src/Spec.purs.js).
+
 ```
 node src/Spec.purs.js   
 ```

@@ -92,11 +92,3 @@ spec {
   requestBody: Just(RBString b)
 } = { code: 200, body: StringResponse(b)}
 spec _ = { code: 500, body: StringResponse("Internal error.") }
-
--- greet :: String -> String
--- greet name = "Hello, " <> name <> "!"
-
--- main :: Effect Unit
--- main = log (spec {}).code
-
--- spec :: Request -> Response
