@@ -1,36 +1,132 @@
 openapi: 3.0.0
+info:
+  version: 0.0.0
+  title: A toy
+components:
+  schemas:
+    Pet:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
 paths:
-    /pets/{id}
-        parameters:
-            - in: path
-              name: id
-        get:
-            resposnes:
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                code:
-                                    type: int
-                                name:
-                                    type: string
-    /pets:
-        get:
-            parameters:
-                - in: header
-                  name: authorization
-                - in: header
-                  name: x_signature
-            resposnes:
-                content:
-                    application/json:
-                        schema:
-                            type: array
-                            items:
-                                type: object
-                                properties:
-                                    code:
-                                        type: int
-                                    name:
-                                        type: string
+  '/pets/{id}':
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: authorization
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: x_signature
+        required: true
+        schema:
+          type: string
+    get:
+      responses:
+        '200':
+          description: All is good
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '400':
+          description: Bad request
+          content:
+            text/plain:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                type: string
+  /pets:
+    parameters:
+      - in: header
+        name: authorization
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: x_signature
+        required: true
+        schema:
+          type: string
+    get:
+      parameters:
+        - in: header
+          required: false
+          schema:
+            type: string
+          name: x_next
+      responses:
+        '200':
+          description: All is good
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+        '400':
+          description: Bad request
+          content:
+            text/plain:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                type: string
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+      responses:
+        '200':
+          description: All is good
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+        '400':
+          description: Bad request
+          content:
+            text/plain:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            text/plain:
+              schema:
+                type: string
+  /echo:
+    post:
+      requestBody:
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: All is good
+          content:
+            text/plain:
+              schema:
+                type: string
