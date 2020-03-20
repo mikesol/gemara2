@@ -21,7 +21,7 @@ type pathPiece =
 
 type requestBody =
   | RBPet(pet)
-  | RBEcho(string);
+  | RBString(string);
 
 type request = {
   headers: request_headers,
@@ -30,49 +30,15 @@ type request = {
   requestBody: option(requestBody),
 };
 
-type pets200 = {
+type responseBody =
+  | PetsResponse(list(pet))
+  | PetResponse(pet)
+  | StringResponse(string);
+
+type response = {
   code: int,
-  body: list(pet),
+  body: responseBody
 };
-
-type pet200 = {
-  code: int,
-  body: pet
-}
-
-type pets201 = {
-  code: int,
-  body: pet,
-};
-
-type all400 = {
-  code: int,
-  body: string,
-};
-
-type echo200 = {
-  code: int,
-  body: string,
-};
-
-type all401 = {
-  code: int,
-  body: string,
-};
-
-type all500 = {
-  code: int,
-  body: string,
-};
-
-type response =
-  | Pets200(pets200)
-  | Pets201(pets201)
-  | Pet200(pet200)
-  | Echo200(echo200)
-  | All400(all400)
-  | All401(all401)
-  | All500(all500);
 
 let spec = req =>
   switch (req) {
@@ -81,54 +47,54 @@ let spec = req =>
       method: GET,
       headers: {authorization: Some(_), x_signature: Some(_)},
     } =>
-    Pets200({code: 200, body: [{id: 1, name: "Fluffy"}]})
+    {code: 200, body: PetsResponse([{id: 1, name: "Fluffy"}])}
   | {
       path: [PString("pets")],
       headers: {x_signature: None},
     } =>
-    All400({code: 400, body: "Bad request."})
+    {code: 400, body: StringResponse("Bad request.")}
   | {
       path: [PString("pets")],
       headers: {authorization: None},
     } =>
-    All401({code: 401, body: "Not authorized."})
+    {code: 401, body: StringResponse("Not authorized.")}
   | {
       path: [PString("pets")],
       method: POST,
       headers: {authorization: Some(_), x_signature: Some(_)},
       requestBody: Some(RBPet(p))
     } =>
-    Pets201({code: 201, body: p})
+    {code: 201, body: PetResponse(p)}
   | {
       path: [PString("pets")],
       method: POST
     } =>
-    All400({code: 400, body: "Bad request."})
+    {code: 400, body: StringResponse("Bad request.")}
   | {
       path: [PString("pets"), PInt(_)],
       method: GET,
       headers: {authorization: Some(_), x_signature: Some(_)},
     } =>
-    Pets200({code: 200, body: [{id: 1, name: "Fluffy"}]})
+    {code: 200, body: PetsResponse([{id: 1, name: "Fluffy"}])}
   | {
       path: [PString("pets"), PInt(_)],
       method: GET,
       headers: {x_signature: None},
     }=>
-    All400({code: 400, body: "Bad request."})
+    {code: 400, body: StringResponse("Bad request.")}
   | {
       path: [PString("pets"), PInt(_)],
       method: GET,
       headers: {authorization: None},
     }=>
-    All401({code: 401, body: "Not authorized."})
+    {code: 401, body: StringResponse("Not authorized.")}
   | {
       path: [PString("echo")],
       method: POST,
-      requestBody: Some(RBEcho(b))
+      requestBody: Some(RBString(b))
     } =>
-    Echo200({code: 200, body: b})
-  | _ => All500({code: 500, body: "Internal error"})
+    {code: 200, body: StringResponse(b)}
+  | _ => {code: 500, body: StringResponse("Internal error.")}
   };
 
 Js.log("Testing gemara");
