@@ -29,6 +29,8 @@ I have no idea. Basically, I've taken an OpenAPI spec and built something that k
 
 ## ReasonML Experiment
 
+[Here it is](./src/Spec.re).
+
 ReasonML has a nice pattern matcher and type safety, making it a good candidate. There are no union types though, so you have to use variants, which leads to the annoying `type pathString = PString(string) | PInt(int);` instead of something more compact like `string | int`.
 
 ### Build
@@ -48,7 +50,9 @@ node src/Spec.bs.js
 
 ## Purescript Experiment
 
-ReasonML has a nice pattern matcher and type safety, making it a good candidate. There are no union types though, so you have to use variants, which leads to the annoying `type pathString = PString(string) | PInt(int);` instead of something more compact like `string | int`.
+[Here it is](./src/Spec.purs).
+
+Purescript is basically the same as ReasonML. Slightly less modern looking, but the language allows you to do a lot more.
 
 ### Build
 
