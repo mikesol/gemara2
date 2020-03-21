@@ -25,11 +25,11 @@ I have no idea. Basically, I've taken an OpenAPI spec and built something that k
 
 ## Original OpenAPI spec
 
-[Look here](./src/index.yml).
+[Look here](./openapi/index.yml).
 
 ## ReasonML Experiment
 
-[Here it is](./src/Spec.re).
+[Here it is](./reasonml/src/Spec.re).
 
 ReasonML has a nice pattern matcher and type safety, making it a good candidate. There are no union types though, so you have to use variants, which leads to the annoying `type pathString = PString(string) | PInt(int);` instead of something more compact like `string | int`.
 
@@ -38,19 +38,21 @@ ReasonML has a nice pattern matcher and type safety, making it a good candidate.
 First, install ReasonML and build the spec.
 
 ```bash
+cd reasonml
 npm install -g bs-platform
-npm run build-reason
+npm run build
 ```
 
 ### Execute
 
 ```
+cd reasonml
 node src/Spec.bs.js
 ```
 
 ## Purescript Experiment
 
-[Here it is](./src/Spec.purs).
+[Here it is](./purescript/src/Spec.purs).
 
 Purescript is basically the same as ReasonML. Slightly less modern looking, but the language allows you to do a lot more.
 
@@ -59,6 +61,7 @@ Purescript is basically the same as ReasonML. Slightly less modern looking, but 
 First, install purescript and build the spec.
 
 ```bash
+cd purescript
 npm install -g purescript
 npm install -g spago
 spago install
@@ -70,5 +73,25 @@ spago build
 Note that this file was written by hand using the Purescript spec, whereas the ReasonML `Spec.bs.js` is entirely self-contained and doesn't use any hand-wrtten javascript. I could have done the same thing here in Purescript, but I created my own JS file to call the Purescript function `spec` just to see if I could call Purescript from JavaScript. Turns out to be pretty straightforward - see [./src/Spec.purs.js](./src/Spec.purs.js).
 
 ```
+cd purescript
 node src/Spec.purs.js   
+```
+
+## Haskell experiment
+
+### Build
+
+First, install stak:
+
+```bash
+curl -sSL https://get.haskellstack.org/ | sh
+```
+
+Then:
+
+```bash
+cd haskell
+stack setup
+stack build
+stack exec gemara-exe
 ```

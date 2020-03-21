@@ -2,9 +2,9 @@
   "name": "gemara2",
   "version": "0.1.0",
   "scripts": {
-    "build-reason": "bsb -make-world",
-    "start-reason": "bsb -make-world -w",
-    "clean-reason": "bsb -clean-world"
+    "build": "bsb -make-world",
+    "start": "bsb -make-world -w",
+    "clean": "bsb -clean-world"
   },
   "keywords": [
     "BuckleScript"
