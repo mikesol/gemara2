@@ -19,7 +19,7 @@ data PathPiece = PString String | PInt Int
 data RequestBody = RBPet Pet | RBString String
 
 type Request =
-  { headers  :: RequestHeaders
+  { headers :: RequestHeaders
   , method :: Method
   , path :: Array PathPiece
   , requestBody :: Maybe RequestBody
