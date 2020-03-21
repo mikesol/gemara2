@@ -93,5 +93,11 @@ Then:
 cd haskell
 stack setup
 stack build
+```
+
+### Execute
+
+```
+cd haskell
 stack exec gemara-exe
 ```
