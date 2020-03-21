@@ -23,7 +23,7 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
+      Spec
   other-modules:
       Paths_gemara
   hs-source-dirs:

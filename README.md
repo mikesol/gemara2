@@ -79,7 +79,7 @@ node src/Spec.purs.js
 
 ## Haskell experiment
 
-[Here it is](./haskell/src/Lib.hs).
+[Here it is](./haskell/src/Spec.hs).
 
 Haskell is basically purescript, but slightly less modern. It is theoretically faster as it is a compiled language, but for this toy example, it doesn't really matter.
 

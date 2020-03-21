@@ -1,6 +1,6 @@
 module Main where
 
-import Lib
+import Spec
 
 main :: IO ()
 main = do
