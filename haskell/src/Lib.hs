@@ -37,61 +37,61 @@ data Response = Response { code :: Int
 
 spec :: Request -> Response
 spec Request{
-  path = [(PString "pets")],
+  path = [PString "pets"],
   method = GET,
   headers = RequestHeaders{
-    authorization = Just(_),
-    x_signature = Just(_)
+    authorization = Just _,
+    x_signature = Just _
   }
-} = Response{ code = 200, body = PetsResponse([Pet{ id = 1, name = "Fluffy" }])}
+} = Response{ code = 200, body = PetsResponse [Pet{ id = 1, name = "Fluffy" }]}
 spec Request{
-  path = [(PString "pets")],
+  path = [PString "pets"],
   headers = RequestHeaders{
     x_signature = Nothing
   }
-} = Response{ code = 400, body = StringResponse("Bad request.")}
+} = Response{ code = 400, body = StringResponse "Bad request." }
 spec Request{
-  path = [(PString "pets")],
+  path = [PString "pets"],
   headers = RequestHeaders{
     authorization = Nothing
   }
-} = Response{ code = 401, body = StringResponse("Not authorized.")}
+} = Response{ code = 401, body = StringResponse "Not authorized."}
 spec Request{
-  path = [(PString "pets")],
+  path = [PString "pets"],
   method = POST,
   headers = RequestHeaders{
-    authorization = Just(_),
-    x_signature = Just(_)
+    authorization = Just _,
+    x_signature = Just _
   },
   requestBody = Just(RBPet p)
-} = Response{ code = 200, body = PetResponse(p)}
+} = Response{ code = 200, body = PetResponse p}
 spec Request{
-  path = [(PString "pets")],
+  path = [PString "pets"],
   method = POST
-} = Response{ code = 400, body = StringResponse("Bad request.")}
+} = Response{ code = 400, body = StringResponse "Bad request." }
 spec Request{
-  path = [(PString "pets"), (PInt _)],
+  path = [PString "pets", PInt _],
   method = GET,
   headers = RequestHeaders{
-    authorization = Just(_),
-    x_signature = Just(_)
+    authorization = Just _,
+    x_signature = Just _
   }
-} = Response{ code = 200, body = PetResponse(Pet{ id = 1, name = "Fluffy" })}
+} = Response{ code = 200, body = PetResponse Pet{ id = 1, name = "Fluffy" } }
 spec Request{
-  path = [(PString "pets"), (PInt _)],
+  path = [PString "pets", PInt _],
   headers = RequestHeaders{
     x_signature = Nothing
   }
-} = Response{ code = 400, body = StringResponse("Bad request.")}
+} = Response{ code = 400, body = StringResponse "Bad request." }
 spec Request{
-  path = [(PString "pets"), (PInt _)],
+  path = [PString "pets", PInt _],
   headers = RequestHeaders{
     authorization = Nothing
   }
-} = Response{ code = 401, body = StringResponse("Not authorized.")}
+} = Response{ code = 401, body = StringResponse "Not authorized." }
 spec Request{
-  path = [(PString "echo")],
+  path = [PString "echo"],
   method = POST,
   requestBody = Just(RBString b)
-} = Response{ code = 200, body =  StringResponse(b)}
-spec _ = Response{ code = 500, body = StringResponse("Internal error.") }
+} = Response{ code = 200, body =  StringResponse b }
+spec _ = Response{ code = 500, body = StringResponse "Internal error." }
