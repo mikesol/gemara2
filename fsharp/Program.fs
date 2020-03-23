@@ -53,31 +53,19 @@ let spec (request: Request) =
         Authorization = Some _
         X_Signature = Some _
       } 
-    } -> {
-      code = 200
-      body = PetsResponse [{
-        id = 1
-        name = "Fluffy"
-      }]
-    }
+    } -> { code = 200; body = PetsResponse [{ id = 1; name = "Fluffy" }]}
   | {
       path = [PString "pets"]
       headers = {
         X_Signature = None
       } 
-    } -> {
-      code = 400
-      body = StringResponse "Bad request."
-    }
+    } -> { code = 400; body = StringResponse "Bad request." }
   | {
       path = [PString "pets"]
       headers = {
         Authorization = None
       } 
-    } -> {
-      code = 401
-      body = StringResponse "Not authorized."
-    }
+    } -> { code = 401; body = StringResponse "Not authorized." }
   | {
       path = [ PString "pets" ]
       method = POST
@@ -86,17 +74,11 @@ let spec (request: Request) =
         X_Signature = Some _
       }
       requestBody = Some (RBPet p)
-    } -> {
-      code = 201
-      body = PetResponse p
-    }
+    } -> { code = 201; body = PetResponse p }
   | {
       path = [ PString "pets" ]
       method = POST
-    } -> {
-      code = 400
-      body = StringResponse "Bad request."
-    }
+    } -> { code = 400; body = StringResponse "Bad request." }
   | {
       path = [PString "pets"; PInt _]
       method = GET
@@ -104,43 +86,25 @@ let spec (request: Request) =
         Authorization = Some _
         X_Signature = Some _
       } 
-    } -> {
-      code = 200
-      body = PetResponse {
-        id = 1
-        name = "Fluffy"
-      }
-    }
+    } -> { code = 200; body = PetResponse { id = 1; name = "Fluffy" }}
   | {
       path = [PString "pets"; PInt _]
       headers = {
         X_Signature = None
       } 
-    } -> {
-      code = 400
-      body = StringResponse "Bad request."
-    }
+    } -> { code = 400; body = StringResponse "Bad request." }
   | {
       path = [PString "pets"; PInt _]
       headers = {
         Authorization = None
       } 
-    } -> {
-      code = 401
-      body = StringResponse "Not authorized."
-    }
+    } -> { code = 401; body = StringResponse "Not authorized." }
   | {
       path = [PString "echo"]
       method = POST
       requestBody = Some (RBString b)
-    } -> {
-      code = 200
-      body = StringResponse b
-    }
-  | _ -> {
-    code = 500
-    body = StringResponse "Internal error."
-    }
+    } -> { code = 200; body = StringResponse b }
+  | _ -> { code = 500; body = StringResponse "Internal error." }
 
 
 [<EntryPoint>]
